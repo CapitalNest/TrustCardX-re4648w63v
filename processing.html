@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Loading...</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
+        html, body {
+            width: 100%;
+            height: 100vh;
+            height: -webkit-fill-available;
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            opacity: 1;
+            transition: opacity 0.4s ease-out;
+        }
+
+        /* Pure Native iOS 12-Blade Activity Indicator */
+        .ios-spinner {
+            position: relative;
+            width: 38px;
+            height: 38px;
+            display: inline-block;
+        }
+
+        .ios-spinner div {
+            position: absolute;
+            width: 8.5%;
+            height: 26%;
+            background: #8E8E93;
+            left: 45.75%;
+            top: 37%;
+            border-radius: 50px;
+            opacity: 0.12;
+            animation: ios-spinner-fade 0.8s linear infinite;
+        }
+
+        .ios-spinner div:nth-child(1)  { transform: rotate(0deg) translate(0, -142%); animation-delay: 0s; }
+        .ios-spinner div:nth-child(2)  { transform: rotate(30deg) translate(0, -142%); animation-delay: -0.733s; }
+        .ios-spinner div:nth-child(3)  { transform: rotate(60deg) translate(0, -142%); animation-delay: -0.666s; }
+        .ios-spinner div:nth-child(4)  { transform: rotate(90deg) translate(0, -142%); animation-delay: -0.600s; }
+        .ios-spinner div:nth-child(5)  { transform: rotate(120deg) translate(0, -142%); animation-delay: -0.533s; }
+        .ios-spinner div:nth-child(6)  { transform: rotate(150deg) translate(0, -142%); animation-delay: -0.466s; }
+        .ios-spinner div:nth-child(7)  { transform: rotate(180deg) translate(0, -142%); animation-delay: -0.400s; }
+        .ios-spinner div:nth-child(8)  { transform: rotate(210deg) translate(0, -142%); animation-delay: -0.333s; }
+        .ios-spinner div:nth-child(9)  { transform: rotate(240deg) translate(0, -142%); animation-delay: -0.266s; }
+        .ios-spinner div:nth-child(10) { transform: rotate(270deg) translate(0, -142%); animation-delay: -0.200s; }
+        .ios-spinner div:nth-child(11) { transform: rotate(300deg) translate(0, -142%); animation-delay: -0.133s; }
+        .ios-spinner div:nth-child(12) { transform: rotate(330deg) translate(0, -142%); animation-delay: -0.066s; }
+
+        @keyframes ios-spinner-fade {
+            0% { opacity: 0.85; }
+            100% { opacity: 0.12; }
+        }
+
+        .fade-out {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Centered Authentic iOS Spinner -->
+    <div class="ios-spinner" role="status" aria-label="Loading">
+        <div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div>
+        <div></div><div></div><div></div><div></div>
+    </div>
+
+    <script>
+        // Smooth transition and redirect after exactly 8 seconds (8000ms)
+        setTimeout(() => {
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = 'giftcardtopup.html';
+            }, 400); // Smooth fade animation prior to navigation
+        }, 7600);
+    </script>
+</body>
+</html>
