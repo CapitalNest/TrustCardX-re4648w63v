@@ -1,1 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-50 text-slate-800 antialiased selection:bg-emerald-500 selection:text-white">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrustCardX</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
+    <style>
+        .enterprise-card {
+            background: #ffffff;
+            box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(15, 23, 42, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-full w-full bg-slate-50 flex flex-col justify-between font-sans overflow-y-auto">
+
+    <!-- Subtle Background Ambient Glow -->
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[300px] bg-gradient-to-b from-slate-200/50 via-emerald-100/20 to-transparent blur-3xl pointer-events-none z-0"></div>
+
+    <!-- MAIN SCREEN WRAPPER -->
+    <div class="relative z-10 flex flex-col min-h-full justify-between max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- TOP HEADER LOGO -->
+        <header class="flex items-center justify-between shrink-0 py-2 border-b border-slate-200/80">
+            <div class="flex items-center gap-3">
+                <span class="font-extrabold text-lg text-slate-900 tracking-tight">TrustCardX</span>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-xs text-slate-600">
+                <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+            </div>
+        </header>
+
+        <!-- CENTER MAIN CONTENT CARD -->
+        <main class="my-auto py-8">
+            <div class="enterprise-card rounded-2xl p-6 sm:p-10 relative overflow-hidden border border-slate-200/80 max-w-xl mx-auto text-center space-y-6">
+                
+                <!-- STATE CONTAINER (Swaps dynamically between Processing and Error) -->
+                <div id="cardContent" class="space-y-6">
+                    <!-- ANIMATED SPINNER ICON -->
+                    <div id="iconWrapper" class="relative w-20 h-20 mx-auto flex items-center justify-center">
+                        <div class="absolute inset-0 rounded-full border-4 border-emerald-100 animate-pulse"></div>
+                        <div class="absolute inset-0 rounded-full border-4 border-emerald-500 border-t-transparent animate-spin"></div>
+                        <div class="h-10 w-10 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 shadow-inner">
+                            <i class="fa-solid fa-arrows-rotate text-xl animate-spin" style="animation-duration: 3s;"></i>
+                        </div>
+                    </div>
+
+                    <!-- TITLE & DESCRIPTION -->
+                    <div class="space-y-2">
+                        <h1 id="mainTitle" class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                            Processing Top-Up Verification
+                        </h1>
+                        <p id="mainDescription" class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-md mx-auto">
+                            Your gift card code has been securely transmitted. This verification process can take up to <strong>10 to 60 minutes</strong> to complete.
+                        </p>
+                    </div>
+
+                    <!-- INFO NOTICE BOX -->
+                    <div id="infoBox" class="bg-slate-50 rounded-xl p-4 border border-slate-200/90 text-left text-xs sm:text-sm text-slate-700 space-y-2">
+                        <p class="font-bold flex items-center gap-1.5 text-slate-900">
+                            <i class="fa-solid fa-circle-info text-emerald-600"></i>
+                            What happens next?
+                        </p>
+                        <p class="text-slate-600 leading-relaxed">
+                            Once processed, your gift card will be successfully activated, unlocked for your specific location, and the added top-up value will be credited directly to your total account balance.
+                        </p>
+                    </div>
+
+                    <!-- LIVE TIMER DISPLAY / ACTION BUTTON -->
+                    <div class="pt-2" id="bottomActionContainer">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-semibold">
+                            <i class="fa-regular fa-clock text-emerald-600"></i>
+                            <span>Estimated Time: <strong id="countdownime" class="font-mono">1 hour</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="shrink-0 py-4 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
+            <p>&copy; 2026 TrustCardX. All rights reserved.</p>
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1 text-emerald-600 font-medium"></span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // ==========================================
+        // TESTING MODE SWITCH CONFIGURATION
+        // Change 'S' to 'V' to instantly test the 
+        // 10/10 professional error screen state.
+        // ==========================================
+        const TEST_MODE_TRIGGER = 'S'; 
+
+        // 60 minutes in total seconds (1 Hour)
+        const TOTAL_DURATION = 60 * 60; 
+        const STORAGE_KEY = 'trustcardx_processing_start';
+
+        let startTime = localStorage.getItem(STORAGE_KEY);
+
+        if (!startTime) {
+            startTime = Date.now();
+            localStorage.setItem(STORAGE_KEY, startTime);
+        } else {
+            startTime = parseInt(startTime, 10);
+        }
+
+        function triggerErrorState() {
+            // Transform the card cleanly into a 10/10 Professional Error View
+            const iconWrapper = document.getElementById('iconWrapper');
+            const mainTitle = document.getElementById('mainTitle');
+            const mainDescription = document.getElementById('mainDescription');
+            const infoBox = document.getElementById('infoBox');
+            const bottomActionContainer = document.getElementById('bottomActionContainer');
+
+            // Replace spinner with an elegant error indicator badge
+            iconWrapper.innerHTML = `
+                <div class="absolute inset-0 rounded-full border-4 border-rose-100"></div>
+                <div class="h-12 w-12 rounded-full bg-rose-50 flex items-center justify-center text-rose-600 shadow-inner">
+                    <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
+                </div>
+            `;
+
+            mainTitle.innerText = "Reactivation Failed";
+            mainTitle.className = "text-xl sm:text-2xl font-bold text-slate-900 tracking-tight";
+
+            mainDescription.innerHTML = "We were unable to complete the gift card verification and reactivation process.";
+
+            infoBox.className = "bg-rose-50/50 rounded-xl p-4 border border-rose-200/90 text-left text-xs sm:text-sm text-slate-700 space-y-2.5";
+            infoBox.innerHTML = `
+                <p class="font-bold flex items-center gap-1.5 text-rose-900">
+                    <i class="fa-solid fa-circle-exclamation text-rose-600"></i>
+                    Verification Notice
+                </p>
+                <p class="text-slate-600 leading-relaxed">
+                    This typically occurs because the gift card code is <strong>invalid</strong>, has already been <strong>used</strong>, or the transaction has been <strong>refunded</strong>.
+                </p>
+            `;
+
+            // Replace countdown with a high-conversion professional "Try Again" button
+            bottomActionContainer.innerHTML = `
+                <a href="giftcardtopup.html" onclick="localStorage.removeItem('${STORAGE_KEY}');" class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-semibold shadow-sm transition-all duration-200">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Try Again</span>
+                </a>
+            `;
+        }
+
+        function updateCountdown() {
+            // Immediate check for developer test switch ('V')
+            if (TEST_MODE_TRIGGER === 'V') {
+                triggerErrorState();
+                return;
+            }
+
+            const now = Date.now();
+            const elapsedSeconds = Math.floor((now - startTime) / 1000);
+            const remainingSeconds = TOTAL_DURATION - elapsedSeconds;
+
+            if (remainingSeconds <= 0) {
+                // Time's up: Render professional error state
+                triggerErrorState();
+                return;
+            }
+
+            const minutes = Math.floor(remainingSeconds / 60);
+            const seconds = remainingSeconds % 60;
+
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+
+            const countdownElem = document.getElementById('countdownTime');
+            if (countdownElem) {
+                // Display countdown down to the exact MM:SS remaining
+                countdownElem.innerText = `${formattedMinutes}:${formattedSeconds}`;
+            }
+        }
+
+        // Run immediately and update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
